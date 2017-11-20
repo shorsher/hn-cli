@@ -1,17 +1,17 @@
-package main 
+package main
 
 import (
 	"bytes"
-	"fmt"
 	"encoding/json"
+	"fmt"
 	"io"
 	"log"
 	"net/http"
 	"strconv"
 )
 
-// Host is the HN API endpoint 
-const Host  = "https://hacker-news.firebaseio.com/v0"
+// Host is the HN API endpoint
+const Host = "https://hacker-news.firebaseio.com/v0"
 
 // Story represents an HN post
 type Story struct {
@@ -60,9 +60,9 @@ func getStories(ids []int, limit int) *bytes.Buffer {
 	var b bytes.Buffer
 
 	if len(ids) > 0 {
-		for _, id := range ids[:limit] {
+		for i, id := range ids[:limit] {
 			item := getStory(id)
-			fmt.Fprintf(&b, "\t%s\n\t%s\n\n", item.Title, item.URL)
+			fmt.Fprintf(&b, "%d.\t%s\n\t%s\n\n", i+1, item.Title, item.URL)
 		}
 	}
 	return &b
